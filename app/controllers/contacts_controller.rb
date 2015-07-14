@@ -1,13 +1,14 @@
-class ContactController < ApplicationController
+class ContactsController < ApplicationController
   private
   def contact_params
-    params[:contact].permit(:name, :email)
+    params[:contact].permit(:name, :email, :user_id)
   end
 
   public
   def index
     @contacts = Contact.all
     render json: @contacts
+    render json: User.find(params[:user_id]).contacts
   end
 
   def create

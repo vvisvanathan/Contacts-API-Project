@@ -53,5 +53,9 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  resources :users, except: [:new, :edit]
+  resources :users, except: [:new, :edit] do
+    resources :contacts, only: [:index]
+  end
+  resources :contacts, except: [:new, :edit, :index]
+  resources :contact_shares, only: [:create, :destroy]
 end
