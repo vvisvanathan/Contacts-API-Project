@@ -6,9 +6,11 @@ class ContactsController < ApplicationController
 
   public
   def index
-    @contacts = Contact.all
-    render json: @contacts
-    render json: User.find(params[:user_id]).contacts
+    render json: all_of_the_contacts
+  end
+
+  def all_of_the_contacts
+    (User.find(params[:user_id]).contacts + User.find(params[:user_id]).shared_contacts).sort { |u1, u2| u1.id <=> u2.id }
   end
 
   def create
